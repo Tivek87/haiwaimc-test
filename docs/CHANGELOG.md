@@ -1,0 +1,18 @@
+# Changelog
+
+Alle wijzigingen aan de Hawaii Beach datapack.
+Elke versie hieronder wordt automatisch gepubliceerd op de
+[Releases-pagina](https://github.com/tivek87/haiwaimc-test/releases) met de zip als download.
+
+Tijden zijn in UTC.
+
+## [1.0.0] - 2026-10-12 23:05 UTC
+
+- Eerste versie van de datapack voor Minecraft (NeoForge) 1.21.1
+- `/function hawaii:beach {chunks:N}` bouwt een strand van 1 t/m 8 chunks rond de speler
+- Zee met diep/ondiep water, koraal, zeegras, kelp en tropische vissen
+- Strand met rechte en schuine palmbomen (met kokosnoten), parasols en schildpadden
+- Tiki bar met rieten dak, bar, krukken, fakkels, naambord en een papegaai
+- Barman "Kai" (villager) verkoopt Pina Colada, Blue Hawaii, Mai Tai en meloen
+- Jungle en heuvels op de achtergrond met bomen, bamboe, bloemen, papegaaien en ocelots
+- Automatische GitHub-release bij elke nieuwe versie in deze changelog

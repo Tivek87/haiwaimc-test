@@ -1,0 +1,52 @@
+name: Release datapack
+
+# Publiceert automatisch een release zodra er een nieuwe versie bovenaan
+# docs/CHANGELOG.md staat. Bestaat de tag al, dan wordt er niets gedaan.
+on:
+  push:
+    paths:
+      - "docs/CHANGELOG.md"
+      - "hawaii_beach/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lees nieuwste changelog-entry
+        id: cl
+        run: |
+          version=$(grep -m1 -oP '^## \[\K[0-9]+\.[0-9]+\.[0-9]+' docs/CHANGELOG.md)
+          if [ -z "$version" ]; then echo "Geen versie gevonden in docs/CHANGELOG.md"; exit 1; fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          awk '/^## \[/{n++} n==1' docs/CHANGELOG.md | tail -n +2 > notes.md
+          cat notes.md
+
+      - name: Bestaat deze release al?
+        id: tag
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/v${{ steps.cl.outputs.version }}" > /dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Maak zip
+        if: steps.tag.outputs.exists == 'false'
+        run: cd hawaii_beach && zip -r "../hawaii_beach-v${{ steps.cl.outputs.version }}.zip" .
+
+      - name: Publiceer release
+        if: steps.tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.cl.outputs.version }}
+        run: |
+          gh release create "v$VERSION" "hawaii_beach-v$VERSION.zip" \
+            --title "Hawaii Beach v$VERSION" \
+            --notes-file notes.md \
+            --target "$GITHUB_SHA"

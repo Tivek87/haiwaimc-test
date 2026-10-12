@@ -18,7 +18,9 @@ WAT DOET HET?
     struiken, meloenen, bloemen, papegaaien, ocelots
 
 INSTALLEREN
-  1. Pak "hawaii_beach.zip" (of kopieer de map "hawaii_beach")
+  1. Download de nieuwste "hawaii_beach-vX.Y.Z.zip" van de Releases-pagina:
+     https://github.com/tivek87/haiwaimc-test/releases
+     (of kopieer de map "hawaii_beach")
   2. Zet hem in:   .minecraft/saves/<jouw wereld>/datapacks/
      (server: world/datapacks/)
   3. In de game:   /reload
@@ -52,6 +54,9 @@ TIPS
     verwijderd zodat je er geen dubbele krijgt.
   - 8 chunks kan een paar seconden laggen, dat is normaal.
   - Je wordt na het bouwen voor de tiki bar gezet.
+
+WIJZIGINGEN
+  Zie docs/CHANGELOG.md (datum, tijd en wat er veranderd is per versie).
 
 BESTANDEN
   hawaii_beach/data/hawaii/function/
