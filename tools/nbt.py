@@ -60,14 +60,18 @@ def _write_payload(buf, tag, value):
         raise TypeError(tag)
 
 
-def write_gzip(path, root):
+def to_bytes(root):
+    """Ongecomprimeerde NBT-bytes."""
     buf = io.BytesIO()
     buf.write(struct.pack(">b", COMPOUND))
     _write_str(buf, "")
     _write_payload(buf, COMPOUND, root)
+    return buf.getvalue()
+
+
+def write_gzip(path, root):
     with open(path, "wb") as f:
-        # mtime=0 zodat de bestanden bij dezelfde inhoud byte-voor-byte gelijk blijven
-        f.write(gzip.compress(buf.getvalue(), mtime=0))
+        f.write(gzip.compress(to_bytes(root), mtime=0))
 
 
 def read_gzip(path):

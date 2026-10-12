@@ -19,7 +19,7 @@ v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor 
 - Steiger met bootjes en visser, hutten, vuurplaats, strandwacht-toren, volleybalveld, zandkastelen, parasols met ligstoelen en surfplanken
 - Gebogen palmen met kokosnoten, reuzen-junglebomen met lianen, bamboebossen, bloemen, papegaaien, ocelots en panda's
 - Terrein loopt aan de randen af zodat het aansluit op de wereld; biomen worden aangepast; geen monsters door lichtblokken
-- Elk blok en elke entity is gecontroleerd tegen de officiele 1.21.1 lijsten
+- Elk blok en elke entity is gecontroleerd tegen de officiele 1.21.1 lijsten; de release-check controleert ook of de gegenereerde bestanden actueel zijn
 
 ## [1.2.1] - 2026-10-12 23:53 UTC
 

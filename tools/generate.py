@@ -3,7 +3,9 @@
 
 Gebruik:  python3 tools/generate.py            (alles opnieuw genereren + controleren)
           python3 tools/generate.py --preview  (ook PNG-voorbeelden in tools/preview/)
+          python3 tools/generate.py --check    (niets schrijven; faalt als de bestanden niet actueel zijn)
 """
+import gzip
 import json
 import pathlib
 import re
@@ -13,7 +15,7 @@ from collections import defaultdict
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
-from nbt import COMPOUND, INT, TagList, write_gzip  # noqa: E402
+from nbt import COMPOUND, INT, TagList, to_bytes  # noqa: E402
 from structures import Planner  # noqa: E402
 from terrain import Terrain  # noqa: E402
 from vegetation import Nature  # noqa: E402
@@ -25,6 +27,22 @@ STRUCT = DATA / "structure"
 GEN = DATA / "function" / "gen"
 MCDATA = json.loads((ROOT / "tools" / "mcdata_1.21.1.json").read_text())
 DATA_VERSION = 3955  # Minecraft 1.21.1
+CHECK = "--check" in sys.argv
+STALE = []
+
+
+def emit(path, data, nbt=False):
+    """Schrijft een bestand, of vergelijkt het in --check modus (nbt: op ongecomprimeerde inhoud)."""
+    if CHECK:
+        try:
+            old = path.read_bytes()
+            old = gzip.decompress(old) if nbt else old
+        except FileNotFoundError:
+            old = None
+        if old != data:
+            STALE.append(str(path.relative_to(ROOT)))
+        return
+    path.write_bytes(gzip.compress(data, mtime=0) if nbt else data)
 
 
 # ------------------------------------------------------------------ late blokken
@@ -84,10 +102,11 @@ def write_size(w, planner):
     n = w.n
     sdir = STRUCT / f"s{n}"
     gdir = GEN / f"s{n}"
-    for d in (sdir, gdir):
-        if d.exists():
-            shutil.rmtree(d)
-        d.mkdir(parents=True)
+    if not CHECK:
+        for d in (sdir, gdir):
+            if d.exists():
+                shutil.rmtree(d)
+            d.mkdir(parents=True)
     chunks = defaultdict(list)
     for (x, y, z), s in w.blk.items():
         cx, cz = (x - w.x0) // 16, (z - w.x0) // 16
@@ -109,7 +128,7 @@ def write_size(w, planner):
                 "blocks": blocks,
                 "entities": TagList(COMPOUND),
             }
-            write_gzip(sdir / f"c_{cx}_{cz}.nbt", root)
+            emit(sdir / f"c_{cx}_{cz}.nbt", to_bytes(root), nbt=True)
             total += len(items)
             # biomen per 4x4 kolommen
             lines = [f"# Biomen voor chunk {cx},{cz} (gegenereerd)"]
@@ -126,12 +145,12 @@ def write_size(w, planner):
                         z1, z2 = pz + 4 * qz, pz + 4 * qz + 3
                         lines.append(f"fillbiome ~{x1} ~{YMIN} ~{z1} ~{x2} ~{TOP} ~{z2} minecraft:{row[start]}")
                         start = qx
-            (gdir / f"b_{cx}_{cz}.mcfunction").write_text("\n".join(lines) + "\n")
+            emit(gdir / f"b_{cx}_{cz}.mcfunction", ("\n".join(lines) + "\n").encode())
     tx, ty, tz, yaw = planner.tp
     post = [f"# Details, dieren en water voor {n}x{n} chunks (gegenereerd door tools/generate.py)"]
     post += w.late + w.cmds_end + w.ents
     post.append(f"tp @a[tag=hawaii_builder] ~{tx} ~{ty} ~{tz} {yaw} 5")
-    (gdir / "post.mcfunction").write_text("\n".join(post) + "\n")
+    emit(gdir / "post.mcfunction", ("\n".join(post) + "\n").encode())
     return total
 
 
@@ -202,6 +221,9 @@ def main():
                       (bx - 10, bz - 16, bx + 20, bz + 16))
             pv.render(w, planner, ROOT / "tools" / "preview" / f"s{n}_bar_inside.png", 12,
                       (bx - 8, bz - 13, bx + 17, bz + 13), ymax=4)
+    if STALE:
+        print(f"{len(STALE)} bestanden zijn niet actueel, bv. {STALE[0]}. Run: python3 tools/generate.py")
+        ok = False
     if not ok:
         sys.exit("Er zijn fouten gevonden")
 
