@@ -1,7 +1,5 @@
 # Klaar (as/at de markering)
-kill @e[type=minecraft:marker,tag=hawaii_bar]
 function hawaii:internal/unforce with storage hawaii:args
-tp @a[tag=hawaii_builder] ~0.5 ~ ~-5.5 0 0
 tag @a remove hawaii_builder
 
 bossbar set hawaii:progress color green

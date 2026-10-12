@@ -9,6 +9,18 @@ Tijden zijn in UTC.
 Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
 v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
 
+## [1.2.2] - 2026-10-12 23:57 UTC
+
+- Volledig nieuw ontwerp: alles wordt per chunk als structuur geplaatst (python3 tools/generate.py ontwerpt elk blok)
+- Grote tiki bar (4+ chunks): rieten dak met glow berries, U-bar met krukken, achterbar, keuken, podium met hula dansers, tafels, totems, zwevend bord
+- 3 bartenders met 6 cocktails met echte effecten (Pina Colada, Blue Hawaii, Mai Tai, Lava Flow, Coconut Kiss, Lagoon Punch) en eten
+- Natuurlijke kustlijn, turquoise warm-ocean water, koraalrif, kelp, zeegras, vissen en dolfijnen
+- Vulkaan met lavameer, magma-stromen en rookpluimen; lagune met waterval, waterlelies, axolotls en kikkers
+- Steiger met bootjes en visser, hutten, vuurplaats, strandwacht-toren, volleybalveld, zandkastelen, parasols met ligstoelen en surfplanken
+- Gebogen palmen met kokosnoten, reuzen-junglebomen met lianen, bamboebossen, bloemen, papegaaien, ocelots en panda's
+- Terrein loopt aan de randen af zodat het aansluit op de wereld; biomen worden aangepast; geen monsters door lichtblokken
+- Elk blok en elke entity is gecontroleerd tegen de officiele 1.21.1 lijsten
+
 ## [1.2.1] - 2026-10-12 23:53 UTC
 
 - Afspraak: na elke wijziging (hoe klein ook) altijd een nieuwe versie en release

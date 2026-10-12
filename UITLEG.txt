@@ -3,19 +3,41 @@
 =====================================================================
 
 WAT DOET HET?
-  Genereert een Hawaii-strand van 1 t/m 8 chunks (16x16 t/m 128x128
-  blokken), gecentreerd op de plek waar je staat:
+  Bouwt een compleet Hawaii-eiland van 1 t/m 8 chunks (16x16 t/m
+  128x128 blokken), gecentreerd op de plek waar je staat.
 
-    WEST  [ zee + koraal ] [ strand + palmen + TIKI BAR ] [ jungle ] [ heuvels ]  OOST
+  Grootte bepaalt hoeveel er op komt:
+   1-3 chunks : strand, zee, compacte tiki bar, palmen, jungle
+   2+         : vuurplaats met bankjes, zandkasteel, totems
+   3+         : steiger met bootjes en visser, lagune met waterval
+   4+         : GROTE tiki bar, vulkaan met lava en rookpluimen
+   5+         : hutten in de jungle, strandwacht-toren, volleybalveld,
+                begraven schat in het rif
 
-  - Zee: diep -> ondiep, warm koraal, zeegras, kelp, tropische vissen
-  - Strand: palmbomen (recht + schuin) met kokosnoten, parasols, schildpadden
-  - Tiki bar: bamboe palen, rieten dak, toonbank, barkrukken,
-    tiki fakkels, naambord, papegaai, en barman "Kai" (villager)
-    die Pina Colada, Blue Hawaii, Mai Tai en meloen verkoopt
-    (en cacaobonen inkoopt)
-  - Jungle + heuvels op de achtergrond: jungle bomen, bamboe,
-    struiken, meloenen, bloemen, papegaaien, ocelots
+  De grote tiki bar:
+   - vlonder met reling, trap, rieten (hooi) dak met lichtgevende
+     glow berries langs de dakrand, kroonluchters, spore blossoms
+   - U-vormige bar met krukken, achterbar met vaten, brouwstanden,
+     punch-ketels, kaarsen, glow item frames met cocktails
+   - keuken met grill en smoker, podium met hula dansers + ukulele
+   - tafels met stoelen en drankjes, totems en tiki fakkels
+   - zwevend bord "~ TIKI BAR ~", hangende naamborden
+   - Kai (cocktails), Leilani (cocktails), Makoa (eten) verkopen
+     Pina Colada, Blue Hawaii, Mai Tai, Lava Flow, Coconut Kiss,
+     Lagoon Punch (echte effecten!) en eten
+
+  Natuur:
+   - turquoise warm-ocean water (biomen worden aangepast),
+     koraalrif, zeegras, kelp, zeekomkommers, tropische vissen,
+     dolfijnen
+   - strand met gebogen palmen + kokosnoten, schelpen, drijfhout,
+     parasols, ligstoelen, handdoeken, koelboxen, surfplanken
+   - jungle met reuzen-junglebomen, lianen, bamboebossen, bloemen,
+     varens, meloenen, papegaaien, ocelots, panda's
+   - lagune met waterval, waterlelies, suikerriet, axolotls, kikkers
+   - vulkaan van basalt/blackstone/tuff met magma-stromen,
+     lavameer in de krater en rookpluimen
+   - onzichtbare lichtblokken: er spawnen geen monsters
 
 INSTALLEREN
   1. Download de nieuwste "hawaii_beach-vX.Y.Z.zip" van de Releases-pagina:
@@ -51,10 +73,11 @@ COMMAND BLOCK
    zelf gebouwd en wordt het command block weggehaald.)
 
 HOE LANG DUURT HET?
-  Er komt een voortgangsbalk bovenin je scherm met een percentage.
-     1 x 1 chunk   ~1,5 seconde
-     4 x 4 chunks  ~2 seconden
-     8 x 8 chunks  ~3 seconden
+  Er komt een voortgangsbalk bovenin je scherm (chunks + percentage).
+  Er worden 2 chunks per tick gebouwd:
+     1 x 1 chunk   < 1 seconde
+     4 x 4 chunks  ~1 seconde
+     8 x 8 chunks  ~2 seconden
   (plus een paar tellen als de chunks nog geladen moeten worden)
   Het strand wordt gebouwd waar jij stond toen je het command gaf.
   Na afloop word je voor de tiki bar gezet.
@@ -63,8 +86,8 @@ TIPS
   - Je hebt cheats / OP (level 2) nodig.
   - Bij 8 chunks moet je render distance minimaal 6 zijn, anders
     zijn niet alle chunks geladen en wordt het gebied half gebouwd.
-  - Ga op ongeveer zeeniveau staan; het gebied wordt van 8 blokken
-    onder je voeten tot 40 blokken boven je hoofd vervangen.
+  - Ga op ongeveer zeeniveau staan; het gebied wordt van 12 blokken
+    onder je voeten tot 56 blokken boven je voeten vervangen.
   - Opnieuw uitvoeren mag: de oude barman en papegaai worden eerst
     verwijderd zodat je er geen dubbele krijgt.
 
@@ -72,13 +95,12 @@ WIJZIGINGEN
   Zie docs/CHANGELOG.md (datum, tijd en wat er veranderd is per versie).
 
 BESTANDEN
-  hawaii_beach/data/hawaii/function/
-    beach.mcfunction            <- snelle start, 4x4 chunks
-    beach_1 .. beach_8          <- vaste groottes
-    generate.mcfunction         <- startpunt met {chunks:N}
-    internal/calc.mcfunction    berekent de zones
-    internal/start + tick       bouwt stap voor stap met voortgangsbalk
-    internal/s_*.mcfunction     de bouwstappen (lucht, grond, zee, land, decoratie)
-    internal/tiki_bar.mcfunction   de tiki bar + barman
-    grid/*.mcfunction           verdeelt decoratie over het gebied
-    deco/*.mcfunction           palmen, parasols, zee, jungle
+  hawaii_beach/data/hawaii/
+    function/beach*.mcfunction   startcommando's
+    function/generate.mcfunction startpunt met {chunks:N}
+    function/internal/           bouwen per chunk + voortgangsbalk
+    function/gen/sN/             (gegenereerd) biomen + details per grootte
+    structure/sN/c_X_Z.nbt       (gegenereerd) 1 structuur per chunk
+  tools/generate.py              ontwerpt alles en maakt de bestanden
+                                 opnieuw:  python3 tools/generate.py
+                                 voorbeeldplaatjes: --preview

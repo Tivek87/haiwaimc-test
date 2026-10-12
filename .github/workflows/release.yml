@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Controleer of de gegenereerde structuren actueel zijn
+        run: |
+          PYTHONHASHSEED=0 python3 tools/generate.py
+          git diff --stat --exit-code -- hawaii_beach || (echo "::error::Run python3 tools/generate.py en commit het resultaat"; exit 1)
+
       - name: Controleer versienummer (max 99 per deel, gelijk aan changelog)
         run: python3 scripts/bump_version.py --check
 
