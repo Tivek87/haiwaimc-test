@@ -1,0 +1,63 @@
+=====================================================================
+  HAWAII STRAND GENERATOR  -  Minecraft NeoForge 1.21.1 (datapack)
+=====================================================================
+
+WAT DOET HET?
+  Genereert een Hawaii-strand van 1 t/m 8 chunks (16x16 t/m 128x128
+  blokken), gecentreerd op de plek waar je staat:
+
+    WEST  [ zee + koraal ] [ strand + palmen + TIKI BAR ] [ jungle ] [ heuvels ]  OOST
+
+  - Zee: diep -> ondiep, warm koraal, zeegras, kelp, tropische vissen
+  - Strand: palmbomen (recht + schuin) met kokosnoten, parasols, schildpadden
+  - Tiki bar: bamboe palen, rieten dak, toonbank, barkrukken,
+    tiki fakkels, naambord, papegaai, en barman "Kai" (villager)
+    die Pina Colada, Blue Hawaii, Mai Tai en meloen verkoopt
+    (en cacaobonen inkoopt)
+  - Jungle + heuvels op de achtergrond: jungle bomen, bamboe,
+    struiken, meloenen, bloemen, papegaaien, ocelots
+
+INSTALLEREN
+  1. Pak "hawaii_beach.zip" (of kopieer de map "hawaii_beach")
+  2. Zet hem in:   .minecraft/saves/<jouw wereld>/datapacks/
+     (server: world/datapacks/)
+  3. In de game:   /reload
+  4. Check:        /datapack list   -> "file/hawaii_beach" moet erbij staan
+
+GEBRUIK (chat)
+  /function hawaii:beach {chunks:4}
+
+  chunks = 1 t/m 8  (lager dan 1 wordt 1, hoger dan 8 wordt 8)
+     1 =  16 x  16 blokken
+     2 =  32 x  32
+     4 =  64 x  64
+     8 = 128 x 128
+
+COMMAND BLOCK
+  Impulse command block, "Needs Redstone", en zet erin:
+
+    execute as @p at @p run function hawaii:beach {chunks:4}
+
+  -> bouwt het strand rond de dichtstbijzijnde speler.
+  (Zonder "execute as @p at @p" wordt het rond het command block
+   zelf gebouwd en wordt het command block weggehaald.)
+
+TIPS
+  - Je hebt cheats / OP (level 2) nodig.
+  - Bij 8 chunks moet je render distance minimaal 6 zijn, anders
+    zijn niet alle chunks geladen en wordt het gebied half gebouwd.
+  - Ga op ongeveer zeeniveau staan; het gebied wordt van 8 blokken
+    onder je voeten tot 40 blokken boven je hoofd vervangen.
+  - Opnieuw uitvoeren mag: de oude barman en papegaai worden eerst
+    verwijderd zodat je er geen dubbele krijgt.
+  - 8 chunks kan een paar seconden laggen, dat is normaal.
+  - Je wordt na het bouwen voor de tiki bar gezet.
+
+BESTANDEN
+  hawaii_beach/data/hawaii/function/
+    beach.mcfunction            <- startpunt (/function hawaii:beach)
+    internal/calc.mcfunction    berekent de zones
+    internal/build.mcfunction   bouwt terrein + water
+    internal/tiki_bar.mcfunction   de tiki bar + barman
+    grid/*.mcfunction           verdeelt decoratie over het gebied
+    deco/*.mcfunction           palmen, parasols, zee, jungle
