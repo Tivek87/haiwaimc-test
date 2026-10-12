@@ -6,6 +6,9 @@ Elke versie hieronder wordt automatisch gepubliceerd op de
 
 Tijden zijn in UTC.
 
+Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
+v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
+
 ## [1.2.0] - 2026-10-12 23:22 UTC
 
 - Voortgangsbalk (bossbar) bovenin beeld met percentage en wat er gebouwd wordt

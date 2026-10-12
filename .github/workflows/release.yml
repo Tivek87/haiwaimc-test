@@ -7,6 +7,7 @@ on:
     paths:
       - "docs/CHANGELOG.md"
       - "hawaii_beach/**"
+      - "scripts/bump_version.py"
   workflow_dispatch:
 
 permissions:
@@ -17,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Controleer versienummer (max 99 per deel, gelijk aan changelog)
+        run: python3 scripts/bump_version.py --check
 
       - name: Lees nieuwste changelog-entry
         id: cl
