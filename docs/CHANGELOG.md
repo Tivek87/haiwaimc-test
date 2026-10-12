@@ -9,6 +9,11 @@ Tijden zijn in UTC.
 Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
 v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
 
+## [1.2.1] - 2026-10-12 23:53 UTC
+
+- Afspraak: na elke wijziging (hoe klein ook) altijd een nieuwe versie en release
+- Release-workflow draait nu bij elke push en wordt rood als er gepusht wordt zonder nieuw versienummer
+
 ## [1.2.0] - 2026-10-12 23:22 UTC
 
 - Voortgangsbalk (bossbar) bovenin beeld met percentage en wat er gebouwd wordt

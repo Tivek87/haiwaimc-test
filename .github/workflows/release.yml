@@ -2,12 +2,9 @@ name: Release datapack
 
 # Publiceert automatisch een release zodra er een nieuwe versie bovenaan
 # docs/CHANGELOG.md staat. Bestaat de tag al, dan wordt er niets gedaan.
+# Draait bij ELKE push: elke wijziging moet een nieuwe versie + release hebben.
 on:
   push:
-    paths:
-      - "docs/CHANGELOG.md"
-      - "hawaii_beach/**"
-      - "scripts/bump_version.py"
   workflow_dispatch:
 
 permissions:
@@ -39,6 +36,12 @@ jobs:
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Geen nieuwe versie? Dan faalt deze push
+        if: steps.tag.outputs.exists == 'true' && github.event_name == 'push'
+        run: |
+          echo "::error::Versie v${{ steps.cl.outputs.version }} is al gereleased. Elke wijziging moet een nieuwe versie hebben: python3 scripts/bump_version.py \"wat er veranderd is\""
+          exit 1
 
       - name: Maak zip
         if: steps.tag.outputs.exists == 'false'
