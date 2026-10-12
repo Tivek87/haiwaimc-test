@@ -103,3 +103,14 @@ execute store result storage hawaii:args gZ int 1 run scoreboard players get #gZ
 execute store result storage hawaii:args oGX int 1 run scoreboard players get #oGX hw
 execute store result storage hawaii:args bGX int 1 run scoreboard players get #bGX hw
 execute store result storage hawaii:args jGX int 1 run scoreboard players get #jGX hw
+
+# stappenplan voor de voortgangsbalk:
+#   0-40 lucht, 41-48 grond, 49 zee, 50 land, 51 tiki bar,
+#   daarna 1 stap per rij zee / strand / jungle
+scoreboard players set #startO hw 52
+scoreboard players operation #endO hw = #startO hw
+scoreboard players operation #endO hw += #orows hw
+scoreboard players operation #endB hw = #endO hw
+scoreboard players operation #endB hw += #brows hw
+scoreboard players operation #total hw = #endB hw
+scoreboard players operation #total hw += #jrows hw

@@ -50,6 +50,15 @@ COMMAND BLOCK
   (Zonder "execute as @p at @p" wordt het rond het command block
    zelf gebouwd en wordt het command block weggehaald.)
 
+HOE LANG DUURT HET?
+  Er komt een voortgangsbalk bovenin je scherm met een percentage.
+     1 x 1 chunk   ~1,5 seconde
+     4 x 4 chunks  ~2 seconden
+     8 x 8 chunks  ~3 seconden
+  (plus een paar tellen als de chunks nog geladen moeten worden)
+  Het strand wordt gebouwd waar jij stond toen je het command gaf.
+  Na afloop word je voor de tiki bar gezet.
+
 TIPS
   - Je hebt cheats / OP (level 2) nodig.
   - Bij 8 chunks moet je render distance minimaal 6 zijn, anders
@@ -58,8 +67,6 @@ TIPS
     onder je voeten tot 40 blokken boven je hoofd vervangen.
   - Opnieuw uitvoeren mag: de oude barman en papegaai worden eerst
     verwijderd zodat je er geen dubbele krijgt.
-  - 8 chunks kan een paar seconden laggen, dat is normaal.
-  - Je wordt na het bouwen voor de tiki bar gezet.
 
 WIJZIGINGEN
   Zie docs/CHANGELOG.md (datum, tijd en wat er veranderd is per versie).
@@ -70,7 +77,8 @@ BESTANDEN
     beach_1 .. beach_8          <- vaste groottes
     generate.mcfunction         <- startpunt met {chunks:N}
     internal/calc.mcfunction    berekent de zones
-    internal/build.mcfunction   bouwt terrein + water
+    internal/start + tick       bouwt stap voor stap met voortgangsbalk
+    internal/s_*.mcfunction     de bouwstappen (lucht, grond, zee, land, decoratie)
     internal/tiki_bar.mcfunction   de tiki bar + barman
     grid/*.mcfunction           verdeelt decoratie over het gebied
     deco/*.mcfunction           palmen, parasols, zee, jungle

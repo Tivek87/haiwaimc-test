@@ -13,4 +13,6 @@ execute if score #chunks hw matches ..0 run scoreboard players set #chunks hw 1
 execute if score #chunks hw matches 9.. run scoreboard players set #chunks hw 8
 
 function hawaii:internal/calc
-execute align xyz run function hawaii:internal/build with storage hawaii:args
+# Start het bouwen op de (afgeronde) positie van de speler.
+# Het bouwen gaat daarna stap voor stap over meerdere ticks, met een voortgangsbalk.
+execute align xyz run function hawaii:internal/start

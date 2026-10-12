@@ -6,6 +6,15 @@ Elke versie hieronder wordt automatisch gepubliceerd op de
 
 Tijden zijn in UTC.
 
+## [1.2.0] - 2026-10-12 23:22 UTC
+
+- Voortgangsbalk (bossbar) bovenin beeld met percentage en wat er gebouwd wordt
+- Bouwen gaat nu in stapjes over meerdere ticks, zodat de game niet meer bevriest (4x4 chunks duurt ~2 sec, 8x8 ~3 sec)
+- Het strand wordt altijd gebouwd op de plek waar de speler stond bij het starten, ook als je tijdens het bouwen wegloopt
+- Chunks worden tijdens het bouwen geladen gehouden (forceload) en daarna weer vrijgegeven
+- Lucht wordt van boven naar beneden gemaakt, zodat zand en grind niet meer naar beneden vallen
+- Chatbericht bij start en bij klaar
+
 ## [1.1.0] - 2026-10-12 23:20 UTC
 
 - Fix: `/function hawaii:beach` zonder argumenten gaf "Missing arguments"; bouwt nu standaard 4x4 chunks
