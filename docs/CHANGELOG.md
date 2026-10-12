@@ -6,6 +6,12 @@ Elke versie hieronder wordt automatisch gepubliceerd op de
 
 Tijden zijn in UTC.
 
+## [1.1.0] - 2026-10-12 23:20 UTC
+
+- Fix: `/function hawaii:beach` zonder argumenten gaf "Missing arguments"; bouwt nu standaard 4x4 chunks
+- Nieuw: `/function hawaii:beach_1` t/m `hawaii:beach_8` voor elke grootte, zonder `{chunks:N}` te typen
+- De versie met argument heet nu `/function hawaii:generate {chunks:N}`
+
 ## [1.0.0] - 2026-10-12 23:05 UTC
 
 - Eerste versie van de datapack voor Minecraft (NeoForge) 1.21.1

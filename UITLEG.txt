@@ -27,18 +27,24 @@ INSTALLEREN
   4. Check:        /datapack list   -> "file/hawaii_beach" moet erbij staan
 
 GEBRUIK (chat)
-  /function hawaii:beach {chunks:4}
+  /function hawaii:beach          -> 4 x 4 chunks (standaard)
+  /function hawaii:beach_1        -> 1 x 1 chunk   ( 16 x  16 blokken)
+  /function hawaii:beach_2        -> 2 x 2 chunks  ( 32 x  32)
+  ...
+  /function hawaii:beach_8        -> 8 x 8 chunks  (128 x 128)
 
-  chunks = 1 t/m 8  (lager dan 1 wordt 1, hoger dan 8 wordt 8)
-     1 =  16 x  16 blokken
-     2 =  32 x  32
-     4 =  64 x  64
-     8 = 128 x 128
+  Of met een getal:
+  /function hawaii:generate {chunks:4}     (1 t/m 8)
+
+  LET OP: "/function hawaii:beach {chunks:8}" werkt NIET voor de
+  grootte (dan krijg je gewoon 4x4). Gebruik beach_8 of generate.
 
 COMMAND BLOCK
   Impulse command block, "Needs Redstone", en zet erin:
 
-    execute as @p at @p run function hawaii:beach {chunks:4}
+    execute as @p at @p run function hawaii:beach_4
+
+  (of: execute as @p at @p run function hawaii:generate {chunks:4})
 
   -> bouwt het strand rond de dichtstbijzijnde speler.
   (Zonder "execute as @p at @p" wordt het rond het command block
@@ -60,7 +66,9 @@ WIJZIGINGEN
 
 BESTANDEN
   hawaii_beach/data/hawaii/function/
-    beach.mcfunction            <- startpunt (/function hawaii:beach)
+    beach.mcfunction            <- snelle start, 4x4 chunks
+    beach_1 .. beach_8          <- vaste groottes
+    generate.mcfunction         <- startpunt met {chunks:N}
     internal/calc.mcfunction    berekent de zones
     internal/build.mcfunction   bouwt terrein + water
     internal/tiki_bar.mcfunction   de tiki bar + barman
