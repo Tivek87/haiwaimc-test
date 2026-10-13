@@ -29,7 +29,8 @@ Geen zip in de repo committen; de zip komt van de Releases-pagina.
 ## Gegenereerde bestanden
 
 `hawaii_beach/data/hawaii/structure/`, `function/gen/` en `worldgen/` worden gemaakt door
-`python3 tools/generate.py` (stranden 1-8 chunks) en `python3 tools/island_generate.py` (eiland 36x36,
-heeft numpy nodig). Ze staan in `.gitignore`; de release-workflow genereert ze opnieuw.
+`python3 tools/generate.py` (stranden 1-8 chunks), `python3 tools/island_generate.py` (eiland 36x36,
+heeft numpy nodig) en `python3 tools/paradise_generate.py` (worldgen-biomen, dimensie, ruines; valideert
+verwijzingen, blokken, types en feature-volgorde tegen `tools/vanilla_1.21.1/`). Ze staan in `.gitignore`; de release-workflow genereert ze opnieuw.
 Test lokaal altijd beide generators (ze controleren elk blok/entity tegen `tools/mcdata_1.21.1.json`)
 en bekijk de voorbeelden met `--preview` (komen in `tools/preview/`, niet committen).

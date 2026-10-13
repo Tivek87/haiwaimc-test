@@ -4,3 +4,7 @@ __pycache__/
 hawaii_beach/data/hawaii/structure/
 hawaii_beach/data/hawaii/function/gen/
 hawaii_beach/data/hawaii/worldgen/
+hawaii_beach/data/hawaii/dimension/
+hawaii_beach/data/hawaii/tags/
+hawaii_beach/data/minecraft/worldgen/
+hawaii_beach/data/minecraft/tags/worldgen/

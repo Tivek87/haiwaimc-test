@@ -20,11 +20,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Genereer alle structuren (strand 1-8 chunks + eiland 36x36)
+      - name: Genereer alles (stranden, eiland, Tropical Paradise biomen)
         run: |
           python -m pip install --quiet numpy
           python tools/generate.py
           python tools/island_generate.py
+          python tools/paradise_generate.py
 
       - name: Controleer versienummer (max 99 per deel, gelijk aan changelog)
         run: python scripts/bump_version.py --check

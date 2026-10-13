@@ -40,6 +40,73 @@ WAT DOET HET?
    - onzichtbare lichtblokken: er spawnen geen monsters
 
 =====================================================================
+  NIEUW: TROPICAL PARADISE BIOME (echte worldgen, laadt met chunks)
+=====================================================================
+  Geen eiland dat je plaatst, maar echte biomen die Minecraft zelf
+  genereert terwijl je rondloopt. Moana / RDR2 Guarma / Tahiti /
+  Bora Bora / tiki sferen met verlaten, overwoekerde azteken- en
+  tiki-ruines.
+
+  Biomen (hawaii:...):
+   tropical_rainforest  dicht regenwoud, reuzenbomen, lianen, cacao
+   lost_jungle          donkere oerjungle met veel ruines
+   bamboo_valley        bamboebossen
+   tiki_grove           kokospalmen, bloemen, open plekken
+   plumeria_valley      roze/witte bloeiende bomen (frangipani)
+   guarma_fields        open graslanden met suikerriet en palmen
+   guarma_highlands     droge hooglanden met koa-bomen
+   moorea_peaks         groene, met mos bedekte bergspitsen met
+                        heel veel watervallen (zoals Moorea/Tahiti)
+   cloud_forest         nevelwoud met boomvarens
+   red_canyon           rode Guarma-kliffen (terracotta lagen)
+   mangrove_coast       mangrovekust
+   white_sand_beach     witte stranden met palmen
+   black_sand_beach     zwart lavazand
+   motu_islets          kleine palmeneilandjes in zee
+   coral_lagoon         turquoise lagune met koraal
+   deep_reef_ocean      diepe blauwe oceaan met rif
+   jungle_river         jungle-rivieren
+   lush_grotto          weelderige grotten onder de grond
+
+  Ruines (verschijnen vanzelf, elke keer een beetje anders):
+   - azteken trappenpiramide met tempel en verborgen schatkamer
+   - verzonken plein met (gebroken) zuilen en een boom erdoorheen
+   - reusachtig half begraven stenen hoofd
+   - tiki-heiligdommen, ingestorte fales, overwoekerd aquaduct
+   - verlaten tiki bar op het strand
+   - verzonken ruines met koraal in de lagune
+   + vanilla scheepswrakken, begraven schatten, warme oceaanruines,
+     junglepiramides en trail ruins
+
+  Eigen kleuren voor gras, bladeren, water en lucht, deeltjes
+  (bloesem, sporen, nevel), eigen muziek, tropische dieren
+  (papegaaien, panda's, schildpadden, dolfijnen, vissen, geiten,
+  paarden, kikkers) en GEEN monsters bovengronds.
+
+  ZO GEBRUIK JE HET (3 manieren):
+
+  A) NIEUWE WERELD helemaal tropisch:
+     Wereld maken -> "Data Packs" -> zet deze datapack erin ->
+     "World Type" / "Wereldtype" -> kies
+     "generator.hawaii.tropical_paradise" (de naam heeft geen
+     vertaling, dat is normaal) -> wereld maken.
+
+  B) BESTAANDE WERELD, aparte dimensie:
+     Zet de datapack in je wereld, sluit de wereld af en open hem
+     opnieuw (server: herstarten). Daarna:
+        /function hawaii:paradise   -> naar Paradise
+        /function hawaii:home       -> terug naar waar je was
+
+  C) BESTAANDE WERELD, gewone overworld:
+     Na herstart worden NIEUWE jungle-, bamboejungle-, sparse
+     jungle- en warm ocean-chunks automatisch tropisch, met ruines.
+     Al bestaande chunks veranderen niet.
+
+  Let op: worldgen-datapacks werken pas na het herstarten van de
+  wereld; /reload is niet genoeg. Test eerst in een kopie van je
+  wereld.
+
+=====================================================================
   NIEUW: HET GROTE EILAND  -  /function hawaii:island
 =====================================================================
   Een compleet tropisch eiland van 36 x 36 chunks (576 x 576 blokken)
@@ -148,6 +215,8 @@ BESTANDEN
     function/gen/sN/             (gegenereerd) biomen + details per grootte
     structure/sN/c_X_Z.nbt       (gegenereerd) 1 structuur per chunk
   tools/generate.py              ontwerpt de stranden (1-8 chunks)
+  tools/paradise_generate.py     maakt de Tropical Paradise biomen,
+                                 bomen, watervallen, ruines en dimensie
   tools/island_generate.py       ontwerpt het grote eiland
                                  (python3 tools/island_generate.py,
                                   voorbeeldplaatjes met --preview)

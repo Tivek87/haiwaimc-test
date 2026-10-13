@@ -9,6 +9,15 @@ Tijden zijn in UTC.
 Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
 v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
 
+## [1.2.4] - 2026-10-13 01:08 UTC
+
+- NIEUW: Tropical Paradise - echte worldgen-biomen die vanzelf genereren terwijl je rondloopt (Moana / Guarma / Tahiti / tiki)
+- 18 eigen biomen: regenwoud, oerjungle, bamboe, palmenbossen, plumeria-dal, Guarma velden en hooglanden, groene Moorea-bergspitsen, nevelwoud, rode kloof, mangrove, witte en zwarte stranden, motu's, koraallagune, diepe oceaan, jungle-rivieren, weelderige grotten
+- Eigen bomen: kokospalmen met kokosnoten, reuzen-regenwoudbomen met lianen, plumeria, roze monkeypods, boomvarens, koa; heel veel watervallen uit de bergwanden
+- Verlaten, overwoekerde azteken/tiki-ruines: trappenpiramide met schatkamer, zuilenplein, reuzenhoofd, heiligdommen, ingestorte fales, aquaduct, verlaten tiki bar, verzonken ruines (elke keer anders vervallen)
+- Nieuwe wereld: kies wereldtype Tropical Paradise; bestaande wereld: /function hawaii:paradise (dimensie) en /function hawaii:home, en nieuwe jungles in de overworld worden ook tropisch
+- Alles wordt gecontroleerd tegen de vanilla 1.21.1 data: verwijzingen, blokken, types en feature-volgorde
+
 ## [1.2.3] - 2026-10-13 00:39 UTC
 
 - NIEUW: /function hawaii:island bouwt een compleet tropisch eiland van 36x36 chunks (576x576 blokken)
