@@ -144,6 +144,8 @@ def write_size(w, planner):
                         x1, x2 = px + 4 * start, px + 4 * qx - 1
                         z1, z2 = pz + 4 * qz, pz + 4 * qz + 3
                         lines.append(f"fillbiome ~{x1} ~{YMIN} ~{z1} ~{x2} ~{TOP} ~{z2} minecraft:{row[start]}")
+                        custom = {"warm_ocean": "coral_lagoon", "beach": "white_sand_beach", "jungle": "rainforest"}[row[start]]
+                        lines.append(f"fillbiome ~{x1} ~{YMIN} ~{z1} ~{x2} ~{TOP} ~{z2} hawaii:{custom}")
                         start = qx
             emit(gdir / f"b_{cx}_{cz}.mcfunction", ("\n".join(lines) + "\n").encode())
     tx, ty, tz, yaw = planner.tp

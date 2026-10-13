@@ -39,6 +39,52 @@ WAT DOET HET?
      lavameer in de krater en rookpluimen
    - onzichtbare lichtblokken: er spawnen geen monsters
 
+=====================================================================
+  NIEUW: HET GROTE EILAND  -  /function hawaii:island
+=====================================================================
+  Een compleet tropisch eiland van 36 x 36 chunks (576 x 576 blokken)
+  met Hawaii / Tahiti / Polynesie / Moana / Guarma / Cuba sferen:
+
+   - bergketen met kliffen (Na Pali / Maui), hooglanden, vlaktes,
+     open weides en heel dicht regenwoud
+   - vulkaan "Mauna Ahi" met lavameer en rookpluimen
+   - 3 rivieren met watervallen en uitzichtpunten,
+     een diepe rode kloof met touwbrug
+   - lagune met koraalrif, motu-eilandjes, zeepilaren,
+     zwart lavastrand met schildpadden, scheepswrak met schat
+   - Kai's Tiki Bar resort met overwater bungalows (Tahiti)
+   - Polynesisch dorp "Kauhale o Moana": fales, marae met tiki's,
+     kano's, taro-velden, hula dansers
+   - koloniaal stadje "Santa Lucia" (Cuba/Guarma): plein met
+     fontein, kerk met klokkentoren, gekleurde huizen, markt, haven
+   - "Hacienda La Dulce": suikerriet, koffie, ananas, suikermolen
+   - Paniolo ranch met paarden, tempel-ruine "Heiau o Lono",
+     vuurtoren, Spaans fort "Castillo San Felipe", boomhut in het
+     regenwoud, wegen met bruggen
+   - papegaaien, kippen, geiten, panda's, schildpadden, dolfijnen,
+     vissen, axolotls, kikkers, paarden en villagers met handel
+   - EIGEN BIOMEN (hawaii:rainforest, coral_lagoon, volcanic_slopes,
+     red_canyon, ...) met eigen kleuren voor gras, bladeren, water,
+     lucht en mist, deeltjes (as bij de vulkaan, bloesem in het dorp),
+     eigen muziek en GEEN monsters
+
+  BELANGRIJK:
+   1. Maak eerst een backup van je wereld! Het eiland vervangt alles
+      in 576 x 576 blokken, van 24 blokken onder je voeten tot 103
+      erboven.
+   2. Eigen biomen werken pas na het herstarten van de wereld:
+      zet de datapack erin, sluit de wereld af en open hem opnieuw
+      (server: herstarten). Zonder herstart krijg je gewone
+      vanilla-biomen (jungle, warm ocean, ...).
+   3. Ga ongeveer op zeeniveau staan, ver weg van belangrijke
+      bouwwerken, en typ:  /function hawaii:island
+   4. Blijf in de buurt. Het bouwen duurt een paar minuten
+      (er worden steeds een paar chunks geladen en gebouwd).
+      De voortgangsbalk laat zien hoeveel chunks klaar zijn.
+   5. Na afloop word je bij de tiki bar gezet.
+
+  Command block:  execute as @p at @p run function hawaii:island
+
 INSTALLEREN
   1. Download de nieuwste "hawaii_beach-vX.Y.Z.zip" van de Releases-pagina:
      https://github.com/tivek87/haiwaimc-test/releases
@@ -101,6 +147,9 @@ BESTANDEN
     function/internal/           bouwen per chunk + voortgangsbalk
     function/gen/sN/             (gegenereerd) biomen + details per grootte
     structure/sN/c_X_Z.nbt       (gegenereerd) 1 structuur per chunk
-  tools/generate.py              ontwerpt alles en maakt de bestanden
-                                 opnieuw:  python3 tools/generate.py
-                                 voorbeeldplaatjes: --preview
+  tools/generate.py              ontwerpt de stranden (1-8 chunks)
+  tools/island_generate.py       ontwerpt het grote eiland
+                                 (python3 tools/island_generate.py,
+                                  voorbeeldplaatjes met --preview)
+  De structuren en gen-functies staan NIET in de repo: de release
+  maakt ze. Download dus altijd de zip van de Releases-pagina.

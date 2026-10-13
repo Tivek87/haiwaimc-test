@@ -16,12 +16,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Controleer of de gegenereerde structuren actueel zijn
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Genereer alle structuren (strand 1-8 chunks + eiland 36x36)
         run: |
-          python3 tools/generate.py --check
+          python -m pip install --quiet numpy
+          python tools/generate.py
+          python tools/island_generate.py
 
       - name: Controleer versienummer (max 99 per deel, gelijk aan changelog)
-        run: python3 scripts/bump_version.py --check
+        run: python scripts/bump_version.py --check
 
       - name: Lees nieuwste changelog-entry
         id: cl

@@ -1,5 +1,6 @@
 # Zet een markering op de plek van de speler en start het bouwen over meerdere ticks.
 kill @e[type=minecraft:marker,tag=hawaii_origin]
+kill @e[type=minecraft:marker,tag=hawaii_origin_island]
 # oude villagers/dieren/decoratie van een vorige keer weghalen
 kill @e[tag=hawaii_ent,distance=..250]
 tag @a remove hawaii_builder

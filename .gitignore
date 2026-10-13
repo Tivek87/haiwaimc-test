@@ -1,2 +1,6 @@
 tools/preview/
 __pycache__/
+# gegenereerd door tools/generate.py en tools/island_generate.py (de release-workflow maakt ze)
+hawaii_beach/data/hawaii/structure/
+hawaii_beach/data/hawaii/function/gen/
+hawaii_beach/data/hawaii/worldgen/

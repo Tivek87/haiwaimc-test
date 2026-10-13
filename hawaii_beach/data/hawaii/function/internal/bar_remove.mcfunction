@@ -1,2 +1,2 @@
-# Haalt de voortgangsbalk weg (niet als er alweer een nieuw strand wordt gebouwd)
-execute unless entity @e[type=minecraft:marker,tag=hawaii_origin] run bossbar remove hawaii:progress
+# Haalt de voortgangsbalk weg (niet als er alweer iets gebouwd wordt)
+execute unless entity @e[type=minecraft:marker,tag=hawaii_origin] unless entity @e[type=minecraft:marker,tag=hawaii_origin_island] run bossbar remove hawaii:progress

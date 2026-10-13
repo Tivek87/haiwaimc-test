@@ -9,6 +9,17 @@ Tijden zijn in UTC.
 Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
 v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
 
+## [1.2.3] - 2026-10-13 00:39 UTC
+
+- NIEUW: /function hawaii:island bouwt een compleet tropisch eiland van 36x36 chunks (576x576 blokken)
+- Bergen met kliffen, hooglanden, vlaktes, open weides en dicht regenwoud; vulkaan met lavameer en rookpluimen
+- 3 rivieren met watervallen en uitzichtpunten, diepe rode kloof met touwbrug, lagune met koraalrif, motu's, zeepilaren, zwart lavastrand, scheepswrak
+- Tiki bar resort met overwater bungalows, Polynesisch dorp (fales, marae, kano's, taro), koloniaal stadje Santa Lucia (kerk, plein, fontein, haven)
+- Hacienda met suikerriet, koffie, ananas en suikermolen; ranch met paarden; tempelruine; vuurtoren; Spaans fort; boomhut; wegen met bruggen
+- Eigen biomen (hawaii:rainforest, coral_lagoon, volcanic_slopes, red_canyon, ...) met eigen kleuren, deeltjes, muziek en zonder monsters (werkt na herstart van de wereld)
+- Stranden 1-8 chunks krijgen ook de eigen biomen (met vanilla als terugval)
+- Gegenereerde bestanden staan niet meer in git; de release-workflow maakt ze
+
 ## [1.2.2] - 2026-10-12 23:57 UTC
 
 - Volledig nieuw ontwerp: alles wordt per chunk als structuur geplaatst (python3 tools/generate.py ontwerpt elk blok)
