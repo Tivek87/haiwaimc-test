@@ -81,14 +81,14 @@ CONFIGURED = {
     # kokospalm: gebogen stam, hangende 'cherry'-kroon met jungle-bladeren, kokosnoten (cacao)
     "palm": tree({"type": "minecraft:bending_trunk_placer", "base_height": 7, "height_rand_a": 3, "height_rand_b": 0,
                   "min_height_for_leaves": 7, "bend_length": uniform(1, 3)},
-                 {"type": "minecraft:cherry_foliage_placer", "radius": 3, "offset": 0, "height": 3,
+                 {"type": "minecraft:cherry_foliage_placer", "radius": 3, "offset": 0, "height": 4,
                   "wide_bottom_layer_hole_chance": 0.6, "corner_hole_chance": 0.9, "hanging_leaves_chance": 0.6,
                   "hanging_leaves_extension_chance": 0.5},
                  "jungle_log", simple(leaves("jungle_leaves")), [{"type": "minecraft:cocoa", "probability": 0.8}],
                  dirt="minecraft:sand", size=(1, 0, 1)),
     "palm_tall": tree({"type": "minecraft:bending_trunk_placer", "base_height": 10, "height_rand_a": 4, "height_rand_b": 0,
                        "min_height_for_leaves": 10, "bend_length": uniform(2, 4)},
-                      {"type": "minecraft:cherry_foliage_placer", "radius": 4, "offset": 0, "height": 3,
+                      {"type": "minecraft:cherry_foliage_placer", "radius": 4, "offset": 0, "height": 4,
                        "wide_bottom_layer_hole_chance": 0.7, "corner_hole_chance": 0.9, "hanging_leaves_chance": 0.7,
                        "hanging_leaves_extension_chance": 0.6},
                       "jungle_log", simple(leaves("jungle_leaves")), [{"type": "minecraft:cocoa", "probability": 0.9}],
@@ -120,7 +120,7 @@ CONFIGURED = {
                       "branch_count": {"type": "minecraft:weighted_list", "distribution": [{"data": 1, "weight": 1}, {"data": 2, "weight": 1}]},
                       "branch_end_offset_from_top": uniform(-1, 0), "branch_horizontal_length": uniform(2, 3),
                       "branch_start_offset_from_top": {"min_inclusive": -3, "max_inclusive": -2}},
-                     {"type": "minecraft:cherry_foliage_placer", "radius": 3, "offset": 0, "height": 3,
+                     {"type": "minecraft:cherry_foliage_placer", "radius": 3, "offset": 0, "height": 4,
                       "wide_bottom_layer_hole_chance": 0.3, "corner_hole_chance": 0.4, "hanging_leaves_chance": 0.1,
                       "hanging_leaves_extension_chance": 0.1},
                      "stripped_birch_log", weighted([(leaves("flowering_azalea_leaves"), 3), (leaves("azalea_leaves"), 1)]),
@@ -537,7 +537,8 @@ def surface_rules():
                     for m in SURF_MAP.get(b.split(":")[1], []):
                         if H + m not in new:
                             new.append(H + m)
-                o["biome_is"] = new
+                # nooit een lege lijst: een bestaande biome die nergens in Paradise voorkomt
+                o["biome_is"] = new or ["minecraft:the_void"]
             for v in o.values():
                 walk(v)
         elif isinstance(o, list):
@@ -831,8 +832,93 @@ def validate(files, tpl_states):
     for t in set(re.findall(r'"type": "minecraft:([a-z_]+)"', surf)):
         if t not in set(REG.get("worldgen/material_condition", [])) | set(REG.get("worldgen/material_rule", [])):
             errors.append(f"surface rule: onbekend type minecraft:{t}")
+    errors += codec_limits(files)
     errors += feature_cycles(files)
     return errors
+
+
+# Grenzen uit de Minecraft 1.21.1 codecs (veld -> (min, max)) per type
+LIMITS = {
+    "minecraft:cherry_foliage_placer": {"height": (4, 16), "radius": (0, 16), "offset": (0, 16)},
+    "minecraft:blob_foliage_placer": {"height": (0, 16), "radius": (0, 16), "offset": (0, 16)},
+    "minecraft:fancy_foliage_placer": {"height": (0, 16), "radius": (0, 16), "offset": (0, 16)},
+    "minecraft:jungle_foliage_placer": {"height": (0, 16), "radius": (0, 16), "offset": (0, 16)},
+    "minecraft:acacia_foliage_placer": {"radius": (0, 16), "offset": (0, 16)},
+    "minecraft:straight_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24)},
+    "minecraft:bending_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24),
+                                       "min_height_for_leaves": (1, 10 ** 6), "bend_length": (1, 64)},
+    "minecraft:mega_jungle_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24)},
+    "minecraft:fancy_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24)},
+    "minecraft:forking_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24)},
+    "minecraft:cherry_trunk_placer": {"base_height": (0, 32), "height_rand_a": (0, 24), "height_rand_b": (0, 24),
+                                      "branch_count": (1, 3), "branch_horizontal_length": (2, 16),
+                                      "branch_end_offset_from_top": (-16, 16), "branch_start_offset_from_top": (-16, 0)},
+    "minecraft:two_layers_feature_size": {"limit": (0, 81), "lower_size": (0, 16), "upper_size": (0, 16)},
+    "minecraft:count": {"count": (0, 256)},
+    "minecraft:rarity_filter": {"chance": (1, 10 ** 6)},
+    "minecraft:random_patch": {"tries": (1, 10 ** 6), "xz_spread": (0, 10 ** 6), "y_spread": (0, 10 ** 6)},
+    "minecraft:jigsaw": {"size": (0, 20), "max_distance_from_center": (1, 128)},
+}
+
+
+def _ints(v):
+    """Alle mogelijke waarden van een int provider (constant, uniform, weighted_list) als (min, max)."""
+    if isinstance(v, int):
+        return v, v
+    if isinstance(v, dict):
+        if "min_inclusive" in v:
+            return v["min_inclusive"], v["max_inclusive"]
+        if v.get("type") == "minecraft:weighted_list":
+            ds = [e["data"] for e in v["distribution"]]
+            return min(ds), max(ds)
+    return None
+
+
+def codec_limits(files):
+    errs = []
+
+    def walk(o, rel):
+        if isinstance(o, dict):
+            t = o.get("type")
+            lim = LIMITS.get(t)
+            if t == "minecraft:random_patch" and "config" in o:
+                lim, o2 = LIMITS[t], o["config"]
+            else:
+                o2 = o
+            if lim:
+                for k, (lo, hi) in lim.items():
+                    if k in o2:
+                        r = _ints(o2[k])
+                        if r and (r[0] < lo or r[1] > hi):
+                            errs.append(f"{rel}: {t} {k}={o2[k]} buiten {lo}..{hi}")
+            if t == "minecraft:cherry_trunk_placer":
+                b = o.get("branch_start_offset_from_top", {})
+                if b and b["max_inclusive"] - b["min_inclusive"] < 1:
+                    errs.append(f"{rel}: branch_start_offset_from_top heeft minstens 2 waarden nodig")
+            if t == "minecraft:jigsaw" and o.get("terrain_adaptation", "none") != "none" \
+                    and o.get("max_distance_from_center", 0) + 12 > 128:
+                errs.append(f"{rel}: max_distance_from_center + 12 > 128")
+            if t == "minecraft:random_spread" and o["spacing"] <= o["separation"]:
+                errs.append(f"{rel}: spacing moet groter zijn dan separation")
+            for v in o.values():
+                walk(v, rel)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v, rel)
+    for rel, obj in files.items():
+        if "/dimension/" in rel or "world_preset" in rel:
+            continue
+        walk(obj, rel)
+        if "/worldgen/biome/" in rel and "/tags/" not in rel:
+            for cat in obj["spawners"].values():
+                for e in cat:
+                    if not (1 <= e["minCount"] <= e["maxCount"]) or e["weight"] < 0:
+                        errs.append(f"{rel}: ongeldige spawn {e}")
+        if "template_pool" in rel:
+            for e in obj["elements"]:
+                if not 1 <= e["weight"] <= 150:
+                    errs.append(f"{rel}: pool-gewicht buiten 1..150")
+    return errs
 
 
 def feature_cycles(files):

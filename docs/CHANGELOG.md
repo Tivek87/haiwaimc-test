@@ -9,6 +9,12 @@ Tijden zijn in UTC.
 Versienummers gaan per update 1 stap omhoog: v0.0.1 -> v0.0.2 ... v0.0.99 -> v0.1.0 ...
 v0.99.99 -> v1.0.0 ... tot maximaal v99.99.99. (v1.0.0 t/m v1.2.0 zijn van voor deze afspraak.)
 
+## [1.2.5] - 2026-10-13 01:14 UTC
+
+- FIX: wereld laadde niet ('Errors in currently selected data packs'): de palm- en plumeria-kronen hadden een hoogte van 3, Minecraft 1.21.1 eist minimaal 4
+- Lege biome-lijsten in de oppervlakte-regels vervangen door minecraft:the_void (extra veilig)
+- Nieuwe controle in de generator op alle minimum/maximum-waarden van Minecraft (bomen, plaatsing, structuren, spawns)
+
 ## [1.2.4] - 2026-10-13 01:08 UTC
 
 - NIEUW: Tropical Paradise - echte worldgen-biomen die vanzelf genereren terwijl je rondloopt (Moana / Guarma / Tahiti / tiki)
